@@ -9,12 +9,17 @@
 ::  +carddeal [4 5]
 ::
 ::
-=<
+::  this is a %say generator; unlike naked gens, these have access
+::  to environment data such as entropy
+::
+:-  %say
 ::
 ::  a is the number of hands to be dealt
 ::  b is the number of cards per hand
 ::
-|=  [a=@ b=@]
+|=  [[* eny=@ *] [[a=@ b=@] ~] ~]
+:-  %noun
+=<
 ::
 ::  `cards` is a core with a shuffled deck as state
 ::
@@ -62,7 +67,7 @@
 ::  a door is a core with a sample, often multi-arm
 ::
 ++  cards
-  |_  [deck=(list card) rng=_~(. og 123.458)]
+  |_  [deck=(list card) rng=_~(. og eny)]
   ::
   ::  `this` is, by convention, how a door refers
   ::  to itself
