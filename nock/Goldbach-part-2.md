@@ -1,6 +1,7 @@
 ### Goldbach Conjecture in Nock, part 2
 
 author: ~taglux-nidsep
+
 date: ~2017.3.12..07.53.29..7d94
 
 In the last Goldbach post we wrote a counterexample tester.  As a reminder, the Goldbach conjecture states:
