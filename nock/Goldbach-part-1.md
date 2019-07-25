@@ -20,25 +20,27 @@ For this program, we'll take advantage of a library of functions from previous p
 
 The two new functions are:  "both_prime(x y)" and "decrement".  I haven't written out these functions in any previous posts, but you can find a version of decrement in the Urbit documentation.  "Both prime" is a function that takes two numbers, x and y, and then tells us whether both are prime numbers.  This function is easy to create once one has a prime checker, which we do!  (See earlier post for that.)  Everything we need in our library is listed at the bottom of this post.
 
-What follows is a pseudo-code algorithm of the program, which has two parts: setup, and loop.
+What follows is a pseudo-code algorithm of the program, which has two parts: setup, and loop. (Keep in mind that in Nock, 0 is true and 1 is false.)
 
 ```
     i = 2                                              ::  i = 2 and j = N - 2
     j = decrement(decrement(N))                        ::  note that the sum of i and j is N
-    If 3 > N then return "1"                           ::  If N isn't greater than 2, it can't be a counterexample (CE)
+    if 3 > N return 1                                  ::  If N isn't greater than 2, it can't be a counterexample (CE)
+    else
+        if ( N is even ) loop_start()
         else
-    If N is even then goto :loop_start
-        else
-    return "1"                                         ::  If N isn't even, it can't be a CE
+            return 1                                   ::  If N isn't even, it can't be a CE
     
-    :loop_start
-    If both_prime(i, j) then return "((i j) 1)"        ::  We've found a pair of primes whose sum is N
+    def loop_start(N):
+        if ( both_prime(i, j) ) return [[i j] 1]       ::  We've found a pair of primes whose sum is N
         else
-    If i + 2 = N then return "0"                       ::  We've tested all pairs whose sum is N, none are pairs of primes
+            if ( i + 2 = N ) return 0                  ::  We've tested all pairs whose sum is N, none are pairs of primes
                                                        ::  If this happens contact a mathematics department.  You've made
                                                        ::  a major discovery.  Fame and fortune coming your way.
-        else
-    Add 1 to i, decrement 1 from j, and goto :loop_start    ::  Take the next pair, (i, j), whose sum is N and test it
+            else
+                i += 1
+                j -= 1
+                loop_start()                           ::  Take the next pair, (i, j), whose sum is N and test it
 ```
 
 The basic idea is not terribly complicated.  First, check to see if N is even and greater than 2.  If not, then it's not a CE.  Second, for the loop, you need to check all pairs of numbers whose sum is N.  If any pair is both prime, then your N isn't a CE.  To generate our list of primes, we start with i = 2 and j = N - 2.  Obviously the sum of these is N.  For the next pair, add 1 to i and take 1 from j.  Repeat this until all pairs have been tested.
