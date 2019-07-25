@@ -19,14 +19,14 @@ In fact, the following program will also incorporate the function of the Goldbac
 Here is the algorithm, in pseudo-code:
 
 ```
-    If N = 0 then goto :start_loop  "If N = 0, then don't stop until a CE is found."
-        else
-    return CE_Check(N)   ::  "Test whether N is a CE, return the result."
+    if ( N = 0 ) then start_loop(N)            ::  "If N = 0, then don't stop until a CE is found."
+    else return CE_Check(N)                    ::  "Test whether N is a CE, return the result."
     
-    :start_loop
-    If CE_Check(N) = 0 then return N   ::  Remember that in Martian, '0' is yes.
+    def start_loop(int N):
+        if ( CE_Check(N) = 0 ) return N        ::  Remember that in Martian, '0' is yes.
         else
-    add 2 to N and goto :start_loop  ::  "Now check the next even number."
+            N += 2
+            start_loop(N)                      ::  "Now check the next even number."
 ```
 
 Let's call this function "Goldbach_final" because it's the final Goldbach program I'm writing in Nock.
