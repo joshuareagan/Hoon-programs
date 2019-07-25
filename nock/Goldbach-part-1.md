@@ -16,7 +16,7 @@ Mathematicians have no proof of this.  (If they did, we'd be calling it a "theor
 
 In the following, we'll construct a Nock program that takes N as input, and then tells us whether it's a CE to the Goldbach conjecture.  If it isn't, and N is even and greater than 2, it will also give us a pair of primes whose sum is N.
 
-For this program, we'll take advantage of a library of functions from previous posts.  I'll also use two new functions that aren't mentioned in previous posts, but the latter are very simple and unlikely to cause any confusion for someone with a little Nock knowledge.  As a reminder, I have no tech background, and besides learning Nock in the last several weeks I haven't done any computer programming since playing around with GW/QBasic in middle school.  Not unless you count lazily attempting a few intro lessons of Python at Codecademy.  Learning Nock really isn't that difficult.
+For this program, we'll take advantage of a library of functions from previous posts.  I'll also use two new functions that aren't mentioned in previous posts, but the latter are very simple and unlikely to cause any confusion for someone with a little Nock knowledge.  Learning Nock really isn't that difficult.
 
 The two new functions are:  "both_prime(x y)" and "decrement".  I haven't written out these functions in any previous posts, but you can find a version of decrement in the Urbit documentation.  "Both prime" is a function that takes two numbers, x and y, and then tells us whether both are prime numbers.  This function is easy to create once one has a prime checker, which we do!  (See earlier post for that.)  Everything we need in our library is listed at the bottom of this post.
 
@@ -24,19 +24,19 @@ What follows is a pseudo-code algorithm of the program, which has two parts: set
 
 ```
     i = 2                                              ::  i = 2 and j = N - 2
-    j = decrement(decrement(N))      ::  note that the sum of i and j is N
-    If 3 > N then return "1"                  ::  If N isn't greater than 2, it can't be a counterexample (CE)
+    j = decrement(decrement(N))                        ::  note that the sum of i and j is N
+    If 3 > N then return "1"                           ::  If N isn't greater than 2, it can't be a counterexample (CE)
         else
     If N is even then goto :loop_start
         else
-    return "1"                                       ::  If N isn't even, it can't be a CE
+    return "1"                                         ::  If N isn't even, it can't be a CE
     
     :loop_start
-    If both_prime(i, j) then return "((i j) 1)"  ::  We've found a pair of primes whose sum is N
+    If both_prime(i, j) then return "((i j) 1)"        ::  We've found a pair of primes whose sum is N
         else
-    If i + 2 = N then return "0"                     ::  We've tested all pairs whose sum is N, none are pairs of primes
-                                                                  ::  If this happens contact a mathematics department.  You've made
-                                                                  ::  a major discovery.  Fame and fortune coming your way.
+    If i + 2 = N then return "0"                       ::  We've tested all pairs whose sum is N, none are pairs of primes
+                                                       ::  If this happens contact a mathematics department.  You've made
+                                                       ::  a major discovery.  Fame and fortune coming your way.
         else
     Add 1 to i, decrement 1 from j, and goto :loop_start    ::  Take the next pair, (i, j), whose sum is N and test it
 ```
